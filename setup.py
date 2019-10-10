@@ -7,7 +7,7 @@ from setuptools import find_packages, setup
 
 setup(
         name='tcafe attending bot',
-        version='0.1.0',
+        version=Path('VERSION').read_text(encoding='UTF-8'),
         author='Byeonghoon Yoo',
         author_email='bh322yoo@gmail.com',
         maintainer='Byeonghoon Yoo',
