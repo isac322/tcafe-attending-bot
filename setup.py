@@ -40,4 +40,9 @@ setup(
         python_requires='>=3.7',
         install_requires=Path('requirements.txt').read_text(encoding='UTF-8').splitlines(),
         zip_safe=True,
+        entry_points={
+            'console_scripts': [
+                'tcafe_attending_bot = tcafe_attending_bot.__main__:console_entry',
+            ]
+        },
 )
