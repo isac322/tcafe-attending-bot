@@ -66,7 +66,7 @@ def _get_accounts() -> Generator[Tuple[str, str], None, None]:
 async def main() -> None:
     accounts = tuple(_get_accounts())
 
-    if len(accounts) is not 0:
+    if len(accounts) != 0:
         await asyncio.wait(tuple(attend(_id, _pw) for _id, _pw in _get_accounts()))
 
 
