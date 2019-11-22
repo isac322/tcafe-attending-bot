@@ -70,5 +70,9 @@ async def main() -> None:
         await asyncio.wait(tuple(attend(_id, _pw) for _id, _pw in _get_accounts()))
 
 
+def console_entry() -> None:
+    asyncio.run(main())
+
+
 if __name__ == '__main__':
     asyncio.run(main())
