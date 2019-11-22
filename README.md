@@ -34,5 +34,5 @@ __OS 별 [`XDG_DATA_DIRS`](https://standards.freedesktop.org/basedir-spec/basedi
 패키지 설치 후
 
 ```bash
-python3 -m tcafe_attending_bot
+tcafe_attending_bot
 ```
