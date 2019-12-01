@@ -25,7 +25,12 @@ jobs:
         python setup.py sdist bdist_wheel
         twine upload dist/*
     - name: Publish AUR
+      env:
+        AUR_KEY: ${{ secrets.AUR_KEY }}
       run: |
+        mkdir .ssh
+        echo $AUR_KEY >> ~/.ssh/id_rsa
+        chmod 600 ~/.ssh/id_rsa
         _VERSION=$(cat VERSION)
         git submodule init
         git submodule update
