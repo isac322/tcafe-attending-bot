@@ -24,3 +24,15 @@ jobs:
       run: |
         python setup.py sdist bdist_wheel
         twine upload dist/*
+    - name: Publish AUR
+      run: |
+        _VERSION=$(cat VERSION)
+        git submodule init
+        git submodule update
+        cd aur
+        git pull
+        sed -i -E "s/^pkgver=.+\$/pkgver=${_VERSION}/" PKGBUILD
+        docker run --rm -t -v "$(pwd):/aur" archlinux 'makepkg --printsrcinfo > /aur/.SRCINFO'
+        git add .SRCINFO PKGBUILD
+        git commit -m "Update to ${_VERSION}"
+        git push --force
