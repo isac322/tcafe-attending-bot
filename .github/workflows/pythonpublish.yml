@@ -29,7 +29,7 @@ jobs:
         AUR_KEY: ${{ secrets.AUR_KEY }}
       run: |
         mkdir .ssh
-        echo $AUR_KEY >> ~/.ssh/id_rsa
+        echo $AUR_KEY > ~/.ssh/id_rsa
         chmod 600 ~/.ssh/id_rsa
         _VERSION=$(cat VERSION)
         git submodule init
