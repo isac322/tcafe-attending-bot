@@ -29,8 +29,9 @@ jobs:
         AUR_KEY: ${{ secrets.AUR_KEY }}
       run: |
         mkdir ~/.ssh
-        echo -e $AUR_KEY > ~/.ssh/id_rsa
-        chmod 600 ~/.ssh/id_rsa
+        echo -e $AUR_KEY > ~/.ssh/aur
+        echo -e 'Host aur.archlinux.org\n\tIdentityFile ~/.ssh/aur\n\tUser aur' > ~/.ssh/config
+        chmod 600 ~/.ssh/aur
         _VERSION=$(cat VERSION)
         git submodule init
         git submodule update
