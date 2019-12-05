@@ -3,6 +3,7 @@
 
 import asyncio
 import json
+import logging
 from pathlib import Path
 from typing import Generator, List, Tuple
 
@@ -15,26 +16,35 @@ _APP_NAME = 'tcafe'
 _ID_KEY = 'id'
 _PW_KEY = 'password'
 
+logger = logging.getLogger(__name__)
+
 
 async def attend(identifier: str, password: str) -> None:
-    async with aiohttp.ClientSession() as session:
-        data = dict(mb_id=identifier, mb_password=password)
+    logger.info(f'Processing {identifier}...')
 
-        # login
-        async with session.post(_BASE_URL + '/bbs/login_check.php', data=data):
-            pass
+    try:
+        async with aiohttp.ClientSession() as session:
+            data = dict(mb_id=identifier, mb_password=password)
 
-        # get hidden values
-        async with session.get(_BASE_URL + '/attendance/selfattend2.php') as res:
-            attend_page = BeautifulSoup(await res.text(), features='html.parser')
-            # language=JQuery-CSS
-            hidden_values: List[BeautifulSoup] = attend_page.select('form[name=frm1] input[type=hidden]')
+            # login
+            async with session.post(_BASE_URL + '/bbs/login_check.php', data=data):
+                pass
 
-            data = {v.attrs['name']: v.attrs['value'] for v in hidden_values}
+            # get hidden values
+            async with session.get(_BASE_URL + '/attendance/selfattend2.php') as res:
+                attend_page = BeautifulSoup(await res.text(), features='html.parser')
+                # language=JQuery-CSS
+                hidden_values: List[BeautifulSoup] = attend_page.select('form[name=frm1] input[type=hidden]')
 
-        # attend
-        async with session.post(_BASE_URL + '/attendance/selfattend2_p.php', data=data):
-            pass
+                data = {v.attrs['name']: v.attrs['value'] for v in hidden_values}
+
+            # attend
+            async with session.post(_BASE_URL + '/attendance/selfattend2_p.php', data=data):
+                pass
+    except IOError:
+        logger.exception(f'Fail to attend {identifier}')
+    else:
+        logger.info(f'{identifier} is attended!')
 
 
 def _get_accounts() -> Generator[Tuple[str, str], None, None]:
@@ -48,6 +58,7 @@ def _get_accounts() -> Generator[Tuple[str, str], None, None]:
             with config_path.open() as fp:
                 config = json.load(fp)
         except IOError:
+            logger.exception(f'Fail to read account info from {config_path}')
             continue
 
         if not isinstance(config, list):
