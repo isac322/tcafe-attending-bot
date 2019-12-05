@@ -23,7 +23,7 @@ jobs:
         TWINE_PASSWORD: ${{ secrets.PYPI_PASSWORD }}
       run: |
         python setup.py sdist bdist_wheel
-        twine upload dist/* --skip-existing --disable-progress-bar
+        twine upload dist/*
     - name: Publish AUR
       env:
         AUR_KEY: ${{ secrets.AUR_KEY }}
