@@ -78,7 +78,7 @@ async def main() -> None:
     accounts = tuple(_get_accounts())
 
     if len(accounts) != 0:
-        await asyncio.wait(tuple(attend(_id, _pw) for _id, _pw in _get_accounts()))
+        await asyncio.gather(*(attend(_id, _pw) for _id, _pw in _get_accounts()))
 
 
 def console_entry() -> None:
