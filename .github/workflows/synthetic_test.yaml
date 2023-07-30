@@ -22,4 +22,6 @@ jobs:
       - name: Test
         env:
           ENABLE_SYNTHETIC: 1
+          TCAFE_ID: '${{ secrets.TCAFE_ID }}'
+          TCAFE_PWD: '${{ secrets.TCAFE_PWD }}'
         run: pytest test/test_api.py::test_synthetic
