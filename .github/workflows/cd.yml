@@ -6,6 +6,9 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    environment:
+      name: pypi
+      url: https://pypi.org/p/tcafe-attending-bot
     permissions:
       id-token: write
     steps:
