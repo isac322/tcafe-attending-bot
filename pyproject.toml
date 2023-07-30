@@ -1,0 +1,54 @@
+[build-system]
+requires = ["flit_core >=3.2,<4"]
+build-backend = "flit_core.buildapi"
+
+[project]
+name = "tcafe-attending-bot"
+authors = [{name = "Byeonghoon Yoo", email = "bhyoo@bhyoo.com"}]
+readme = "README.md"
+license = {file = "LICENSE"}
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: AsyncIO",
+    "Environment :: Console",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Natural Language :: Korean",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3 :: Only",
+    "Typing :: Typed",
+]
+dynamic = ["version", "description"]
+requires-python = ">3.10"
+dependencies = [
+    "aiohttp==3.8.5",
+    "beautifulsoup4==4.12.2",
+    "xdg-base-dirs==6.0.0",
+]
+
+[project.scripts]
+tcafe-attending-bot = "tcafe_attending_bot:main"
+
+[project.optional-dependencies]
+test = [
+    "pytest",
+    "pytest-asyncio",
+]
+lint = [
+    "black",
+]
+
+[project.urls]
+Home = "https://github.com/isac322/tcafe-attending-bot"
+
+
+[tool.black]
+line-length = 120
+target-version = ['py310', 'py311']
+preview = true
+skip-string-normalization = true
