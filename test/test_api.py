@@ -17,7 +17,7 @@ async def test_reachable() -> None:
             print(res)
 
 
-@pytest.mark.skipif(not bool(os.getenv('ENABLE_SYNTHETIC', 'False')), reason='synthetic test disabled')
+@pytest.mark.skipif(bool(os.getenv('ENABLE_SYNTHETIC', '')), reason='synthetic test disabled')
 @pytest.mark.asyncio
 async def test_synthetic() -> None:
     uid = os.getenv('TCAFE_ID')
