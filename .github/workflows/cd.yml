@@ -57,6 +57,7 @@ jobs:
             type=semver,pattern={{major}}.{{minor}}
 
       - name: Set up QEMU
+        id: docker_qemu
         uses: docker/setup-qemu-action@v2
         with:
           platforms: linux/amd64,linux/arm64/v8
@@ -71,4 +72,4 @@ jobs:
           context: .
           tags: ${{ steps.docker_meta.outputs.tags }}
           labels: ${{ steps.docker_meta.outputs.labels }}
-          platforms: ${{ steps.metadata.outputs.platforms }}
+          platforms: ${{ steps.docker_qemu.outputs.platforms }}
