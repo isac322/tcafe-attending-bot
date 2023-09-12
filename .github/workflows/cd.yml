@@ -60,7 +60,7 @@ jobs:
 
       - name: Set up QEMU
         id: docker_qemu
-        uses: docker/setup-qemu-action@v2
+        uses: docker/setup-qemu-action@v3
         with:
           platforms: ${{ env.PLATFORMS }}
 
